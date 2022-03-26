@@ -30,4 +30,21 @@ public class DeckOfCards {
                 "playingCards=" + playingCards +
                 '}';
     }
+
+    public ArrayList<PlayingCard> dealHand(int numberOfCards){
+        if (numberOfCards < 1 || numberOfCards > 52){
+            throw new IllegalArgumentException("numberOfCards has to be between 1 and 52");
+        }
+
+        ArrayList<PlayingCard> hand = new ArrayList<>();
+        Random random = new Random();
+
+        for (int i = 0; i < numberOfCards; i++){
+            PlayingCard playingCard = playingCards.get(random.nextInt(playingCards.size()));
+            hand.add(new PlayingCard(playingCard.getSuit(), playingCard.getFace()));
+            playingCards.remove(playingCard);
+        }
+
+        return hand;
+    }
 }

@@ -72,4 +72,41 @@ class DeckOfCardsTest {
             assertEquals(13, clubs.size());
         }
     }
+
+    @Nested
+    class testsForDealHandMethod {
+
+        @Test
+        @DisplayName("Test that DealHand deals expected number of cards")
+        void testThatDealHandDealsExpectedNumberOfCards() {
+            DeckOfCards deckOfCards = new DeckOfCards();
+
+            ArrayList<PlayingCard> playingCards = deckOfCards.dealHand(5);
+            assertEquals(5, playingCards.size());
+        }
+
+        @Test
+        @DisplayName("Test that DealHand does not deal duplicates")
+        void testThatDealHandDoesNotDealDuplicates() {
+            DeckOfCards deckOfCards = new DeckOfCards();
+            ArrayList<PlayingCard> playingCards = deckOfCards.dealHand(52);
+
+            for (int i = 0; i < playingCards.size(); i++) {
+                for (int j = i + 1; j < playingCards.size(); j++) {
+                    if (playingCards.get(i).equals(playingCards.get(j))) {
+                        fail();
+                    }
+                }
+            }
+        }
+
+        @Test
+        @DisplayName("Test that DealHand removes cards from deck")
+        void testThatDealHandRemovesCardsFromDeck(){
+            DeckOfCards deckOfCards = new DeckOfCards();
+            ArrayList<PlayingCard> playingCards = deckOfCards.dealHand(5);
+
+            assertEquals(47, deckOfCards.getPlayingCards().size());
+        }
+    }
 }
