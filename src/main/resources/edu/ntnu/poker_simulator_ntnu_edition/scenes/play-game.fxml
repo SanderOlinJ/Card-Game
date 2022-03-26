@@ -9,74 +9,79 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
-            prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="edu.ntnu.poker_simulator_ntnu_edition.Controllers.PlayGameController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.poker_simulator_ntnu_edition.Controllers.PlayGameController">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="1216.0" fitWidth="1254.0" layoutX="-6.0" layoutY="-7.0" pickOnBounds="true"
-                       preserveRatio="true">
+            <ImageView fitHeight="1216.0" fitWidth="1254.0" layoutX="-6.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@jpgs_and_pngs/brown.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="586.0" fitWidth="993.0" layoutX="35.0" layoutY="237.0" pickOnBounds="true"
-                       preserveRatio="true">
+            <ImageView fitHeight="586.0" fitWidth="993.0" layoutX="35.0" layoutY="237.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@jpgs_and_pngs/40f99d95d3ed1b51f96b7ffe79dd1f22.png" />
                </image>
             </ImageView>
-            <Button layoutX="1066.0" layoutY="405.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="110.0"
-                    style="-fx-background-color: grey;" text="Check Hand">
+            <Button fx:id="checkHandButton" disable="true" layoutX="1066.0" layoutY="570.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="110.0" text="Check Hand">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <Button layoutX="1066.0" layoutY="329.0" mnemonicParsing="false" prefHeight="35.0"
-                    prefWidth="110.0" text="Deal Hand">
+            <Button fx:id="dealHandButton" disable="true" layoutX="1066.0" layoutY="473.0" mnemonicParsing="false" onAction="#onDealHandButtonPressed" prefHeight="35.0" prefWidth="110.0" text="Deal Hand">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <Text fill="WHITE" layoutX="125.0" layoutY="874.0" strokeType="OUTSIDE"
-                  strokeWidth="0.0" text="Sum of faces on hand:">
+            <Text fill="WHITE" layoutX="125.0" layoutY="874.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sum of faces on hand:">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="213.0" layoutY="943.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="Poker Hand:" textAlignment="RIGHT">
+            <Text fill="WHITE" layoutX="213.0" layoutY="943.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Poker Hand:" textAlignment="RIGHT">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="628.0" layoutY="874.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="Queen of Spades:">
+            <Text fill="WHITE" layoutX="628.0" layoutY="874.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Queen of Spades:">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="643.0" layoutY="942.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="Cards of Hearts:">
+            <Text fill="WHITE" layoutX="643.0" layoutY="942.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cards of Hearts:">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </Text>
-            <TextField layoutX="813.0" layoutY="923.0" prefHeight="25.0" prefWidth="215.0"
-                       style="-fx-background-color: tan;" />
-            <TextField layoutX="813.0" layoutY="855.0" prefHeight="25.0" prefWidth="215.0"
-                       style="-fx-background-color: tan;" />
-            <TextField layoutX="339.0" layoutY="855.0" prefHeight="25.0" prefWidth="215.0"
-                       style="-fx-background-color: tan;" />
-            <TextField layoutX="339.0" layoutY="923.0" prefHeight="25.0" prefWidth="215.0"
-                       style="-fx-background-color: tan;" />
-            <Button fx:id="goBackButton" layoutX="47.0" layoutY="249.0" mnemonicParsing="false"
-                    onAction="#goBackButtonPressed" prefHeight="30.0" prefWidth="105.0" text="Go Back">
+            <TextField layoutX="813.0" layoutY="923.0" prefHeight="25.0" prefWidth="215.0" style="-fx-background-color: tan;" />
+            <TextField layoutX="813.0" layoutY="855.0" prefHeight="25.0" prefWidth="215.0" style="-fx-background-color: tan;" />
+            <TextField layoutX="339.0" layoutY="855.0" prefHeight="25.0" prefWidth="215.0" style="-fx-background-color: tan;" />
+            <TextField layoutX="339.0" layoutY="923.0" prefHeight="25.0" prefWidth="215.0" style="-fx-background-color: tan;" />
+            <Button fx:id="goBackButton" layoutX="47.0" layoutY="249.0" mnemonicParsing="false" onAction="#goBackButtonPressed" prefHeight="30.0" prefWidth="105.0" text="Go Back">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
+            <Button fx:id="newDeckButton" layoutX="1066.0" layoutY="294.0" mnemonicParsing="false" onAction="#onNewDeckButtonPressed" prefHeight="35.0" prefWidth="110.0" text="New Deck">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <ImageView fx:id="cardDeckImage" fitHeight="166.0" fitWidth="105.0" layoutX="181.0" layoutY="265.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@jpgs_and_pngs/carddeck.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="randomCard1" fitHeight="150.0" fitWidth="200.0" layoutX="144.0" layoutY="550.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="randomCard2" fitHeight="150.0" fitWidth="200.0" layoutX="317.0" layoutY="550.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="randomCard3" fitHeight="150.0" fitWidth="200.0" layoutX="487.0" layoutY="550.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="randomCard4" fitHeight="150.0" fitWidth="200.0" layoutX="657.0" layoutY="550.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="randomCard5" fitHeight="150.0" fitWidth="200.0" layoutX="821.0" layoutY="550.0" pickOnBounds="true" preserveRatio="true" />
+            <Text fx:id="newDeckText" fill="#d8dd6c" layoutX="302.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deck has less than 5 cards left. Shuffle new deck." textAlignment="CENTER" visible="false" wrappingWidth="538.435546875">
+               <font>
+                  <Font name="Arial Bold" size="36.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
    </center>

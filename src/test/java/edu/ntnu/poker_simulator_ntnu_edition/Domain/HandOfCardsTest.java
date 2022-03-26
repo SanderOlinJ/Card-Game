@@ -1,5 +1,6 @@
 package edu.ntnu.poker_simulator_ntnu_edition.Domain;
 
+import javafx.scene.image.Image;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -114,5 +115,18 @@ class HandOfCardsTest {
 
             assertFalse(hand.isThreeOfAKind());
         }
+    }
+
+    @Test
+    void testThatGetHandReturnsHand(){
+        ArrayList<PlayingCard> handOfCards = new ArrayList<>();
+        for (int i = 1; i < 6; i++){
+            handOfCards.add(new PlayingCard('S',i));
+        }
+        HandOfCards hand = new HandOfCards(handOfCards);
+
+        ArrayList<PlayingCard> returnHand = hand.getHand();
+
+        assertEquals("S1",returnHand.get(0).getAsString());
     }
 }

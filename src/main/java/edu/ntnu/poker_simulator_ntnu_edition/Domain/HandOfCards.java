@@ -43,4 +43,8 @@ public class HandOfCards {
                 .stream().max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey).orElse(0);
     }
+
+    public ArrayList<PlayingCard> getHand() {
+        return hand;
+    }
 }
