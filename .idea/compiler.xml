@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="poker_simulator_ntnu_edition" target="17" />
+      <module name="poker_simulator_ntnu_edition" target="16" />
     </bytecodeTargetLevel>
   </component>
 </project>
