@@ -1,5 +1,6 @@
 package edu.ntnu.poker_simulator_ntnu_edition.Domain;
 
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -117,16 +118,89 @@ class HandOfCardsTest {
         }
     }
 
-    @Test
-    void testThatGetHandReturnsHand(){
-        ArrayList<PlayingCard> handOfCards = new ArrayList<>();
-        for (int i = 1; i < 6; i++){
-            handOfCards.add(new PlayingCard('S',i));
+    @Nested
+    class testsForMethodsUsedForControllerClass{
+
+        @Test
+        void testThatCheckPokerHandReturnsAHand(){
+            ArrayList<PlayingCard> handOfCards = new ArrayList<>();
+            for (int i = 1; i < 6; i++){
+                handOfCards.add(new PlayingCard('S',i));
+            }
+            HandOfCards hand = new HandOfCards(handOfCards);
+
+            assertEquals("Flush", hand.checkPokerHand());
         }
-        HandOfCards hand = new HandOfCards(handOfCards);
 
-        ArrayList<PlayingCard> returnHand = hand.getHand();
+        @Test
+        void testThatCheckPokerHandReturnsWhenNoCombination(){
+            ArrayList<PlayingCard> handOfCards = new ArrayList<>();
 
-        assertEquals("S1",returnHand.get(0).getAsString());
+            handOfCards.add(new PlayingCard('H',2));
+            handOfCards.add(new PlayingCard('H',5));
+            handOfCards.add(new PlayingCard('H',2));
+
+            handOfCards.add(new PlayingCard('D',3));
+            handOfCards.add(new PlayingCard('C',6));
+
+            HandOfCards hand = new HandOfCards(handOfCards);
+
+
+            assertEquals("No Combination", hand.checkPokerHand());
+        }
+
+        @Test
+        void testThatSumOfFacesOnHandReturnCorrectValue(){
+            ArrayList<PlayingCard> handOfCards = new ArrayList<>();
+            for (int i = 1; i < 6; i++){
+                handOfCards.add(new PlayingCard('S',i));
+            }
+            HandOfCards hand = new HandOfCards(handOfCards);
+
+            assertEquals(15,hand.sumOfFacesOnHand());
+        }
+
+        @Test
+        void testThatGetCardsOfHeartsReturnExpectedStringResult(){
+            ArrayList<PlayingCard> handOfCards = new ArrayList<>();
+            for (int i = 1; i < 6; i++){
+                handOfCards.add(new PlayingCard('H',i));
+            }
+            HandOfCards hand = new HandOfCards(handOfCards);
+
+            assertEquals("H1 H2 H3 H4 H5", hand.getCardsOfHearts());
+        }
+
+        @Test
+        void testThatGetCardsOfHeartsReturnExpectedStringWhenNoCardsOfHearts(){
+            ArrayList<PlayingCard> handOfCards = new ArrayList<>();
+            for (int i = 1; i < 6; i++){
+                handOfCards.add(new PlayingCard('S',i));
+            }
+            HandOfCards hand = new HandOfCards(handOfCards);
+
+            assertEquals("No Hearts", hand.getCardsOfHearts());
+        }
+
+        @Test
+        void testThatIsQueenOfSpadesOnHandReturnFalseWhenFalse(){
+            ArrayList<PlayingCard> handOfCards = new ArrayList<>();
+            for (int i = 1; i < 6; i++){
+                handOfCards.add(new PlayingCard('S',i));
+            }
+            HandOfCards hand = new HandOfCards(handOfCards);
+
+            assertFalse(hand.isQueenOfSpadesOnHand());
+        }
+
+        @Test
+        void testThatIsQueenOfSpadesOnHandReturnTrueWhenTrue(){
+            ArrayList<PlayingCard> handOfCards = new ArrayList<>();
+            for (int i = 9; i < 13; i++){
+                handOfCards.add(new PlayingCard('S',i));
+            }
+            HandOfCards hand = new HandOfCards(handOfCards);
+            assertTrue(hand.isQueenOfSpadesOnHand());
+        }
     }
 }
