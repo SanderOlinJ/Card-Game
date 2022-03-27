@@ -41,7 +41,6 @@ public class PlayGameController {
     @FXML private TextField pokerHandTextField;
     @FXML private TextField sumFacesTextField;
 
-
     /**
      * goBackButtonPressed()
      * Returns the user back to the start screen

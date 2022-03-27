@@ -184,6 +184,115 @@ class HandOfCardsTest {
     }
 
     @Nested
+    class testIsStraight{
+
+        @Test
+        void testThatIsStraightReturnsTrueWhenTrue(){
+            ArrayList<PlayingCard> handOfCards = new ArrayList<>();
+            for (int i = 1; i < 6; i++){
+                handOfCards.add(new PlayingCard('S',i));
+            }
+            HandOfCards hand = new HandOfCards(handOfCards);
+
+            assertTrue(hand.isStraight());
+        }
+
+        @Test
+        void testThatIsStraightReturnsFalseWhenFalse(){
+            ArrayList<PlayingCard> handOfCards = new ArrayList<>();
+            for (int i = 1; i < 5; i++){
+                handOfCards.add(new PlayingCard('S',i));
+            }
+            handOfCards.add(new PlayingCard('S',7));
+            HandOfCards hand = new HandOfCards(handOfCards);
+
+            assertFalse(hand.isStraight());
+        }
+    }
+
+    @Nested
+    class testIsStraightFlush{
+
+        @Test
+        void testThatIsStraightFlushReturnsTrueWhenTrue(){
+            ArrayList<PlayingCard> handOfCards = new ArrayList<>();
+            for (int i = 1; i < 6; i++){
+                handOfCards.add(new PlayingCard('S',i));
+            }
+            HandOfCards hand = new HandOfCards(handOfCards);
+
+            assertTrue(hand.isStraightFlush());
+        }
+
+        @Test
+        void testThatIsStraightFlushReturnsFalseWhenFalse(){
+            ArrayList<PlayingCard> handOfCards = new ArrayList<>();
+            for (int i = 1; i < 5; i++){
+                handOfCards.add(new PlayingCard('S',i));
+            }
+            handOfCards.add(new PlayingCard('D',5));
+            HandOfCards hand = new HandOfCards(handOfCards);
+
+            assertFalse(hand.isStraightFlush());
+        }
+    }
+    @Nested
+    class testIsRoyalFlush{
+
+        @Test
+        void testThatIsRoyalFlushReturnsTrueWhenTrue(){
+            ArrayList<PlayingCard> handOfCards = new ArrayList<>();
+            for (int i = 10; i < 14; i++){
+                handOfCards.add(new PlayingCard('S',i));
+            }
+            handOfCards.add(new PlayingCard('S',1));
+            HandOfCards hand = new HandOfCards(handOfCards);
+
+            assertTrue(hand.isRoyalFlush());
+        }
+
+        @Test
+        void testThatIsRoyalFlushReturnsFalseWhenFalse(){
+            ArrayList<PlayingCard> handOfCards = new ArrayList<>();
+            for (int i = 1; i < 5; i++){
+                handOfCards.add(new PlayingCard('S',i));
+            }
+            handOfCards.add(new PlayingCard('D',5));
+            HandOfCards hand = new HandOfCards(handOfCards);
+
+            assertFalse(hand.isRoyalFlush());
+        }
+    }
+
+    @Nested
+    class testIsHighCard{
+
+        @Test
+        void testThatIsHighCardReturnsTrueWhenTrue(){
+            ArrayList<PlayingCard> handOfCards = new ArrayList<>();
+            for (int i = 1; i < 6; i++){
+                handOfCards.add(new PlayingCard('S',i));
+            }
+            HandOfCards hand = new HandOfCards(handOfCards);
+
+            assertTrue(hand.isHighCard());
+        }
+
+        @Test
+        void testThatIsHighCardReturnsFalseWhenFalse(){
+            ArrayList<PlayingCard> handOfCards = new ArrayList<>();
+            for (int i = 2; i < 6; i++){
+                handOfCards.add(new PlayingCard('S',i));
+            }
+            handOfCards.add(new PlayingCard('D',9));
+            HandOfCards hand = new HandOfCards(handOfCards);
+
+            assertFalse(hand.isHighCard());
+        }
+    }
+
+
+    @Nested
     class testsForMethodsUsedForControllerClass{
 
         @Test
@@ -194,7 +303,7 @@ class HandOfCardsTest {
             }
             HandOfCards hand = new HandOfCards(handOfCards);
 
-            assertEquals("Flush", hand.checkPokerHand());
+            assertEquals("Straight Flush", hand.checkPokerHand());
         }
 
         @Test
@@ -203,7 +312,7 @@ class HandOfCardsTest {
 
             handOfCards.add(new PlayingCard('H',2));
             handOfCards.add(new PlayingCard('H',5));
-            handOfCards.add(new PlayingCard('H',1));
+            handOfCards.add(new PlayingCard('H',7));
 
             handOfCards.add(new PlayingCard('D',3));
             handOfCards.add(new PlayingCard('C',6));

@@ -63,27 +63,56 @@ public class HandOfCards {
                 .map(Map.Entry::getKey).orElse(0);
     }
 
+    /**
+     * isOnePair()
+     * Method checks if two cards in hand has the same face value
+     * Uses the mostOccurringFaceInHand() to find most frequent face value,
+     * then checks if there are exactly two of them.
+     * @return true if one pair, false if not
+     */
     public boolean isOnePair(){
         return hand.stream().filter(playingCard -> playingCard.getFace() == mostOccurringFaceInHand())
                 .count() == 2;
     }
 
+    /**
+     * isTwoPair()
+     * Method checks if there are two separate pairs of cards in hand
+     * Uses the mostOccurringFaceInHand() to find most frequent face value
+     * Then it uses removeMostOccurringFaceAndCheckIfThereIsAnotherPairInHand()
+     * to check if there is another pair in hand
+     * @return true if two pairs, false if not
+     */
     public boolean isTwoPair(){
         if (hand.stream().filter(playingCard -> playingCard.getFace() == mostOccurringFaceInHand()).count() != 2){
             return false;
         }
 
-        return removeMostOccurringFaceInHand();
+        return removeMostOccurringFaceAndCheckIfThereIsAnotherPairInHand();
     }
 
+    /**
+     * isFullHouse()
+     * Method checks if there are 3 of one card, and 2 of another in hand
+     * Uses mostOccurringFaceInHand() to check if there are exactly 3 of the most frequent face
+     * Then uses removeMostOccurringFaceAndCheckIfThereIsAnotherPairInHand()
+     * to see if there is another pair in hand
+     * @return true if full house, false if not
+     */
     public boolean isFullHouse(){
         if (hand.stream().filter(playingCard -> playingCard.getFace() == mostOccurringFaceInHand()).count() != 3){
             return false;
         }
-        return removeMostOccurringFaceInHand();
+        return removeMostOccurringFaceAndCheckIfThereIsAnotherPairInHand();
     }
 
-    private boolean removeMostOccurringFaceInHand() {
+    /**
+     * removeMostOccurringFaceAndCheckIfThereIsAnotherPairInHand()
+     * Method removes the most frequent instance of a face in hand
+     * Then checks if there is another pair in hand.
+     * @return true if another pair in hand, false if not
+     */
+    private boolean removeMostOccurringFaceAndCheckIfThereIsAnotherPairInHand() {
         int mostOccurring = mostOccurringFaceInHand();
         List<Integer> playingCardFaces = hand.stream().map(PlayingCard::getFace)
                 .collect(Collectors.toList());
@@ -103,6 +132,56 @@ public class HandOfCards {
         return false;
     }
 
+    /**
+     * isStraight()
+     * Methods checks if each card in hand is of sequential order
+     * Takes into account that the Ace can be the lowest and highest card
+     * @return true if straight, false if not
+     */
+    public boolean isStraight(){
+        List<Integer> playingCardFaces = hand.stream().map(PlayingCard::getFace)
+                .sorted().collect(Collectors.toList());
+        if (playingCardFaces.get(0) == 1 &&
+                playingCardFaces.get(0)+1 != playingCardFaces.get(1)) {
+            return (playingCardFaces.get(1)) + 1 == playingCardFaces.get(2) &&
+                    (playingCardFaces.get(2)) + 1 == playingCardFaces.get(3) &&
+                    (playingCardFaces.get(3)) + 1 == playingCardFaces.get(4) &&
+                    (playingCardFaces.get(4) + 1 == playingCardFaces.get(0) + 13);
+        } else return (playingCardFaces.get(0)) + 1 == playingCardFaces.get(1) &&
+                (playingCardFaces.get(1)) + 1 == playingCardFaces.get(2) &&
+                (playingCardFaces.get(2)) + 1 == playingCardFaces.get(3) &&
+                (playingCardFaces.get(3)) + 1 == playingCardFaces.get(4);
+    }
+
+    /**
+     * isStraightFlush()
+     * Method checks if cards on hand are flush and straight
+     * @return true if Straight flush, false if not
+     */
+    public boolean isStraightFlush(){
+        return isFlush() && isStraight();
+    }
+
+    /**
+     * isRoyalFlush()
+     * Method checks if cards on hand are flush and straight, just as isStraightFlush
+     * @return true if Royal flush, false if not
+     */
+    public boolean isRoyalFlush(){
+        List<Integer> playingCardFaces = hand.stream().map(PlayingCard::getFace)
+                .sorted().collect(Collectors.toList());
+        return playingCardFaces.get(0) == 1 && playingCardFaces.get(0)+1 != playingCardFaces.get(1) &&
+        isFlush() && isStraight();
+    }
+
+    public boolean isHighCard(){
+        List<Integer> playingCardFaces = hand.stream().map(PlayingCard::getFace)
+                .sorted().collect(Collectors.toList());
+        if (playingCardFaces.get(0) == 1){
+            return true;
+        }
+        return playingCardFaces.get(4) > 9;
+    }
 
     /**
      * getHand()
@@ -118,20 +197,28 @@ public class HandOfCards {
      * Method checks your hand for each the possible poker hand combinations
      * @return poker hand combination, String
      */
-    public String checkPokerHand(){
-        if (isFourOfAKind()){
+    public String checkPokerHand() {
+        if (isRoyalFlush()) {
+            return "Royal Flush";
+        } else if (isStraightFlush()) {
+            return "Straight Flush";
+        } else if (isFourOfAKind()) {
             return "Four Of A Kind";
-        }else if (isFullHouse()){
+        } else if (isFullHouse()) {
             return "Full House";
-        }else if (isFlush()){
+        } else if (isFlush()) {
             return "Flush";
-        }else if (isThreeOfAKind()){
+        } else if (isStraight()) {
+            return "Straight";
+        } else if (isThreeOfAKind()) {
             return "Three Of A Kind";
-        }else if (isTwoPair()){
+        } else if (isTwoPair()) {
             return "Two Pair";
-        }else if (isOnePair()){
+        } else if (isOnePair()) {
             return "One Pair";
-        }else{
+        } else if (isHighCard()){
+            return "High Card";
+        } else{
             return "No Combination";
         }
     }
