@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -119,6 +120,70 @@ class HandOfCardsTest {
     }
 
     @Nested
+    class testIsTwoPair{
+
+        @Test
+        void testThatIsTwoPairReturnsTrueWhenTrue(){
+            ArrayList<PlayingCard> playingCards = new ArrayList<>();
+            playingCards.add(new PlayingCard('S',3));
+            playingCards.add(new PlayingCard('H',3));
+            playingCards.add(new PlayingCard('D',8));
+            playingCards.add(new PlayingCard('D',9));
+            playingCards.add(new PlayingCard('C',9));
+
+            HandOfCards hand = new HandOfCards(playingCards);
+
+            hand.isTwoPair();
+
+            assertTrue(hand.isTwoPair());
+        }
+
+        @Test
+        void testThatIsTwoPairReturnsFalseWhenFalse(){
+            ArrayList<PlayingCard> playingCards = new ArrayList<>();
+            playingCards.add(new PlayingCard('S',3));
+            playingCards.add(new PlayingCard('H',3));
+            playingCards.add(new PlayingCard('H',7));
+            playingCards.add(new PlayingCard('D',8));
+            playingCards.add(new PlayingCard('C',9));
+            HandOfCards hand = new HandOfCards(playingCards);
+
+            assertFalse(hand.isTwoPair());
+        }
+    }
+
+    @Nested
+    class testIsFullHouse{
+
+        @Test
+        void testThatIsFullHouseReturnsTrueWhenTrue(){
+            ArrayList<PlayingCard> playingCards = new ArrayList<>();
+            playingCards.add(new PlayingCard('S',3));
+            playingCards.add(new PlayingCard('H',3));
+            playingCards.add(new PlayingCard('H',8));
+            playingCards.add(new PlayingCard('D',8));
+            playingCards.add(new PlayingCard('C',8));
+            HandOfCards hand = new HandOfCards(playingCards);
+
+            assertTrue(hand.isFullHouse());
+        }
+
+        @Test
+        void testThatIsFullHouseReturnsFalseWhenFalse(){
+            ArrayList<PlayingCard> playingCards = new ArrayList<>();
+            playingCards.add(new PlayingCard('S',3));
+            playingCards.add(new PlayingCard('H',3));
+            playingCards.add(new PlayingCard('H',8));
+            playingCards.add(new PlayingCard('D',8));
+            playingCards.add(new PlayingCard('C',7));
+            HandOfCards hand = new HandOfCards(playingCards);
+
+            assertFalse(hand.isFullHouse());
+        }
+
+    }
+
+    @Nested
     class testsForMethodsUsedForControllerClass{
 
         @Test
@@ -138,7 +203,7 @@ class HandOfCardsTest {
 
             handOfCards.add(new PlayingCard('H',2));
             handOfCards.add(new PlayingCard('H',5));
-            handOfCards.add(new PlayingCard('H',2));
+            handOfCards.add(new PlayingCard('H',1));
 
             handOfCards.add(new PlayingCard('D',3));
             handOfCards.add(new PlayingCard('C',6));

@@ -2,6 +2,7 @@ package edu.ntnu.poker_simulator_ntnu_edition.Controllers;
 import edu.ntnu.poker_simulator_ntnu_edition.CardGameApplication;
 import edu.ntnu.poker_simulator_ntnu_edition.Domain.DeckOfCards;
 import edu.ntnu.poker_simulator_ntnu_edition.Domain.HandOfCards;
+import edu.ntnu.poker_simulator_ntnu_edition.Domain.PlayingCard;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,7 @@ import javafx.stage.Stage;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class PlayGameController {
@@ -84,9 +86,7 @@ public class PlayGameController {
             exception.getMessage();
 
         }
-        if (hand.isFlush()){
-            dealHandButton.setDisable(true);
-        }
+
         if (deckOfCards.getPlayingCards().size()<5){
             dealHandButton.setDisable(true);
             newDeckButton.setDisable(false);

@@ -1,9 +1,6 @@
 package edu.ntnu.poker_simulator_ntnu_edition.Domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -66,6 +63,47 @@ public class HandOfCards {
                 .map(Map.Entry::getKey).orElse(0);
     }
 
+    public boolean isOnePair(){
+        return hand.stream().filter(playingCard -> playingCard.getFace() == mostOccurringFaceInHand())
+                .count() == 2;
+    }
+
+    public boolean isTwoPair(){
+        if (hand.stream().filter(playingCard -> playingCard.getFace() == mostOccurringFaceInHand()).count() != 2){
+            return false;
+        }
+
+        return removeMostOccurringFaceInHand();
+    }
+
+    public boolean isFullHouse(){
+        if (hand.stream().filter(playingCard -> playingCard.getFace() == mostOccurringFaceInHand()).count() != 3){
+            return false;
+        }
+        return removeMostOccurringFaceInHand();
+    }
+
+    private boolean removeMostOccurringFaceInHand() {
+        int mostOccurring = mostOccurringFaceInHand();
+        List<Integer> playingCardFaces = hand.stream().map(PlayingCard::getFace)
+                .collect(Collectors.toList());
+        hand.forEach(integer -> playingCardFaces.removeIf(integer1 -> integer1 == mostOccurring));
+
+        Collections.sort(playingCardFaces);
+
+        if (playingCardFaces.size() == 3) {
+            if (Objects.equals(playingCardFaces.get(0), playingCardFaces.get(1)) ||
+                    Objects.equals(playingCardFaces.get(1), playingCardFaces.get(2))) {
+                return true;
+            }
+        }
+        if (playingCardFaces.size() == 2){
+            return Objects.equals(playingCardFaces.get(0), playingCardFaces.get(1));
+        }
+        return false;
+    }
+
+
     /**
      * getHand()
      * @return hand, ArrayList
@@ -81,12 +119,18 @@ public class HandOfCards {
      * @return poker hand combination, String
      */
     public String checkPokerHand(){
-        if (isFlush()){
-            return "Flush";
-        }else if (isFourOfAKind()){
+        if (isFourOfAKind()){
             return "Four Of A Kind";
+        }else if (isFullHouse()){
+            return "Full House";
+        }else if (isFlush()){
+            return "Flush";
         }else if (isThreeOfAKind()){
             return "Three Of A Kind";
+        }else if (isTwoPair()){
+            return "Two Pair";
+        }else if (isOnePair()){
+            return "One Pair";
         }else{
             return "No Combination";
         }
