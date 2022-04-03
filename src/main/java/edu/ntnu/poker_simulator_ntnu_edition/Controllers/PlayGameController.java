@@ -2,7 +2,6 @@ package edu.ntnu.poker_simulator_ntnu_edition.Controllers;
 import edu.ntnu.poker_simulator_ntnu_edition.CardGameApplication;
 import edu.ntnu.poker_simulator_ntnu_edition.Domain.DeckOfCards;
 import edu.ntnu.poker_simulator_ntnu_edition.Domain.HandOfCards;
-import edu.ntnu.poker_simulator_ntnu_edition.Domain.PlayingCard;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +17,6 @@ import javafx.stage.Stage;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class PlayGameController {
